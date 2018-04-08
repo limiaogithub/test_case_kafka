@@ -1,22 +1,28 @@
 # test_case_kafka
-<h2>±¾ÎÄÊÇ½²½âÔÚwindowsÏÂÔËĞĞkafka£¬ÊµÏÖÉú²úÏû·Ñ</h2>
+<h2>æœ¬æ–‡æ˜¯è®²è§£åœ¨windowsä¸‹è¿è¡Œkafkaï¼Œå®ç°ç”Ÿäº§æ¶ˆè´¹</h2>
 
-1.½âÑ¹kafka_2.12-1.0.1</br>
-2.ĞŞ¸Äkafka_2.12-1.0.1\config\zookeeper.propertiesÎÄ¼ş</br>
+1.è§£å‹kafka_2.12-1.0.1</br>
+2.ä¿®æ”¹kafka_2.12-1.0.1\config\zookeeper.propertiesæ–‡ä»¶</br>
 dataDir=D:\zookeeperlog</br>
-3.ĞŞ¸Äkafka_2.12-1.0.1\config\server.propertiesÎÄ¼ş</br>
+3.ä¿®æ”¹kafka_2.12-1.0.1\config\server.propertiesæ–‡ä»¶</br>
 log.dirs=D:\kafkalog</br>
 
-4.ÃüÁîĞĞ cd kafka_2.12-1.0.1\bin\windows</br>
+4.å‘½ä»¤è¡Œ cd kafka_2.12-1.0.1\bin\windows</br>
 zookeeper-server-start ../../config/zookeeper.properties</br>
 
-5.ÔÙÆğÒ»¸öÃüÁîĞĞ cd kafka_2.12-1.0.1\bin\windows</br>
+5.å†èµ·ä¸€ä¸ªå‘½ä»¤è¡Œ cd kafka_2.12-1.0.1\bin\windows</br>
 kafka-server-start ../../config/server.properties</br>
 
 
-6.´´½¨topic ÔÙÆğÒ»¸öÃüÁîĞĞ cd kafka_2.12-1.0.1\bin\windows</br>
+6.åˆ›å»ºtopic å†èµ·ä¸€ä¸ªå‘½ä»¤è¡Œ cd kafka_2.12-1.0.1\bin\windows</br>
 kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic yt</br>
 
-7.ÔËĞĞKafkaProducerExample.java
 
-8.ÔËĞĞKafkaConsumerExample.java 
+<h2>æµ‹è¯•ï¼š</h2>
+kafka-console-producer.bat --broker-list localhost:9092 --topic yt</br>
+kafka-console-consumer.bat -zookeeper localhost:2181 --from-beginning --topic yt</br>
+
+
+<h2>ä»£ç æµ‹è¯•ï¼š</h2>
+è¿è¡ŒKafkaProducerExample.java</br>
+è¿è¡ŒKafkaConsumerExample.java </br>
