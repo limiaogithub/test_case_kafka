@@ -26,3 +26,20 @@ kafka-console-consumer.bat -zookeeper localhost:2181 --from-beginning --topic yt
 <h2>代码测试：</h2>
 运行KafkaProducerExample.java</br>
 运行KafkaConsumerExample.java </br>
+
+
+<h2>kafka常用命令：</h2>
+#创建topic </br>
+./kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic topicA </br>
+ </br>
+#查看最大偏移量 </br>
+./kafka-run-class.sh kafka.tools.GetOffsetShell --topic topicA  --broker-list node:port  </br>
+ </br>
+#查看所有topic列表 </br>
+./kafka-topics.sh --zookeeper node:port --list </br>
+ </br>
+#查看指定topic信息 </br>
+./kafka-topics.sh --zookeeper node:port --describe --topic topicA </br>
+ </br>
+#控制台消费数据 </br>
+./kafka-console-consumer.sh  --zookeeper node:port  --topic topicA --from-beginning --group groupA </br>
