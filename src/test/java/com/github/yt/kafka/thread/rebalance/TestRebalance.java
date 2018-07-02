@@ -1,33 +1,32 @@
-package com.github.yt.kafka.simple;
+package com.github.yt.kafka.thread.rebalance;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.testng.annotations.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Properties;
 
+
 /**
- * kafka消费者.
- *
- * @author limiao
+ * 一 触发rebalance的时机
+ * # 有新的消费者加入
+ * <p>
+ * # 有消费者宕机或者下线
+ * <p>
+ * # 消费者主动退出消费者组
+ * <p>
+ * # 消费者组订阅的topic出现分区数量变化
+ * <p>
+ * # 消费者调用unsubscrible取消对某topic的订阅
  */
-public class KafkaConsumerExample {
+public class TestRebalance {
 
     private static final String servers = "xj-71.yoyosys:9092,xj-72.yoyosys:9092,xj-73.yoyosys:9092";
 
     private static final String topic = "limiao";
 
-    private static final String group = "test-group5";
+    private static final String group = "test-group11";
 
-    private static final boolean autoSubmit = true;
 
-    @Test()
-    public void test() {
+    public static void main(String args[]) {
+
         Properties props = new Properties();
-
         /**
          * 消费者初始连接kafka集群时的地址列表。
          * */
@@ -53,7 +52,7 @@ public class KafkaConsumerExample {
         /**
          * 如果设为true，消费者的偏移量会定期在后台提交。
          * */
-        props.put("enable.auto.commit", autoSubmit);
+        props.put("enable.auto.commit", true);
 
         /**
          * The frequency in milliseconds that the consumer offsets are auto-committed to Kafka if enable.auto.commit is set to true. 默认5000
@@ -93,37 +92,10 @@ public class KafkaConsumerExample {
         props.put("max.partition.fetch.bytes", 1048576);
 
 
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
-
-        consumer.subscribe(Arrays.asList(topic));
-        System.out.println("Subscribed to topic " + topic);
-
-        ArrayList<ConsumerRecord<String, String>> buffer = new ArrayList<>();
-        while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
-
-            for (ConsumerRecord<String, String> record : records) {
-                System.out.printf("offset = %d, key = %s, value = %s\n",
-                        record.offset(), record.key(), record.value());
-            }
-            if (autoSubmit) {
-                return;
-            }
-
-            for (ConsumerRecord<String, String> record : records) {
-                buffer.add(record);
-            }
-
-            if (buffer.size() >= 50) {
-                System.out.println("▲submit offset!");
-                //处理完之后进行提交
-                //同步或异步提交
-                //consumer.commitSync();
-                consumer.commitAsync();
-                //清除list, 继续接收
-                buffer.clear();
-            }
-        }
+        Thread normalThread = new Thread(new KafkaConsumerThread(topic, props, false));
+        Thread faultThread = new Thread(new KafkaConsumerThread(topic, props, true));
+        normalThread.start();
+        faultThread.start();
     }
 
 }
