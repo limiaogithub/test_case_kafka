@@ -20,7 +20,7 @@ public class KafkaConsumerExample {
 
     private static final String topic = "limiao";
 
-    private static final String group = "test-group5";
+    private static final String group = "test-group15";
 
     private static final boolean autoSubmit = true;
 
@@ -36,7 +36,7 @@ public class KafkaConsumerExample {
         /*
          * 每次请求，kafka返回的最小的数据量。如果数据量不够，这个请求会等待，直到数据量到达最小指标时，才会返回给消费者。如果设置大于1，会提高kafka的吞吐量，但是会有额外的等待期的代价。
          * */
-        props.put("fetch.min.bytes", 1);
+        props.put("fetch.min.bytes", 30);
 
         /**
          * 标识这台消费者属于那个消费组。如果消费者通过订阅主题来实现组管理功能，或者使用基于kafka的偏移量管理策略，这个配置是必须的。
@@ -107,7 +107,7 @@ public class KafkaConsumerExample {
                         record.offset(), record.key(), record.value());
             }
             if (autoSubmit) {
-                return;
+                continue;
             }
 
             for (ConsumerRecord<String, String> record : records) {

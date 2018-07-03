@@ -4,7 +4,8 @@ import java.util.Properties;
 
 
 /**
- * 一 触发rebalance的时机
+ * 一 触发rebalance的时机，本类测试有消费者宕机或unsubscrible时触发rebalance。
+ * <p>
  * # 有新的消费者加入
  * <p>
  * # 有消费者宕机或者下线
@@ -21,11 +22,9 @@ public class TestRebalance {
 
     private static final String topic = "limiao";
 
-    private static final String group = "test-group11";
+    private static final String group = "test-group16";
 
-
-    public static void main(String args[]) {
-
+    public static Properties getConfig() {
         Properties props = new Properties();
         /**
          * 消费者初始连接kafka集群时的地址列表。
@@ -90,8 +89,11 @@ public class TestRebalance {
          * 否则可能生产者发送了一个消息，大于消费者配置的值。这种情况下，消费者可能会在获取那条消息时堵住。
          * */
         props.put("max.partition.fetch.bytes", 1048576);
+        return props;
+    }
 
-
+    public static void main(String args[]) {
+        Properties props = getConfig();
         Thread normalThread = new Thread(new KafkaConsumerThread(topic, props, false));
         Thread faultThread = new Thread(new KafkaConsumerThread(topic, props, true));
         normalThread.start();
