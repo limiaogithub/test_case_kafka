@@ -1,5 +1,5 @@
 # test_case_kafka
-<h2>本文是讲解在windows下运行kafka，实现生产消费</h2>
+<h2>这里介绍了如何在windows下安装kakfa，并且提供了单元测试程序进行生产消费。</h2>
 
 1.解压kafka_2.12-1.0.1</br>
 2.修改kafka_2.12-1.0.1\config\zookeeper.properties文件</br>
