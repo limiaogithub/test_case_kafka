@@ -16,11 +16,14 @@ import java.util.Properties;
  */
 public class KafkaConsumerExample {
 
-    private static final String servers = "xj-71.yoyosys:9092,xj-72.yoyosys:9092,xj-73.yoyosys:9092";
+    /**
+     * 需要修改！！！
+     */
+    private static final String servers = "kafka地址";
 
-    private static final String topic = "limiao";
+    private static final String topic = "testTopic";
 
-    private static final String group = "test-group15";
+    private static final String group = "testGroup1";
 
     private static final boolean autoSubmit = true;
 

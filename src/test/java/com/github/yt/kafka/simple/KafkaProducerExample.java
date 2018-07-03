@@ -16,9 +16,12 @@ import java.util.concurrent.ExecutionException;
  */
 public class KafkaProducerExample {
 
-    private static final String servers = "xj-71.yoyosys:9092,xj-72.yoyosys:9092,xj-73.yoyosys:9092";
+    /**
+     * 需要修改！！！
+     */
+    private static final String servers = "kafka地址";
 
-    private static final String topic = "limiao";
+    private static final String topic = "testTopic";
 
     private static final boolean isAsync = false;
 

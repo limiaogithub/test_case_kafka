@@ -18,11 +18,14 @@ import java.util.Properties;
  */
 public class TestRebalance {
 
-    private static final String servers = "xj-71.yoyosys:9092,xj-72.yoyosys:9092,xj-73.yoyosys:9092";
+    /**
+     * 需要修改！！！
+     */
+    private static final String servers = "kafka地址";
 
-    private static final String topic = "limiao";
+    private static final String topic = "testTopic";
 
-    private static final String group = "test-group16";
+    private static final String group = "rebalanceGroup";
 
     public static Properties getConfig() {
         Properties props = new Properties();
